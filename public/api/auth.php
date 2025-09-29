@@ -12,6 +12,10 @@ function validatePassword($password) {
     return strlen($password) >= 6;
 }
 
+// Hardcoded admin credentials for initial access
+const ADMIN_EMAIL = 'admin@muffinshop.com';
+const ADMIN_PASSWORD_HASH = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // 'admin123'
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
     
@@ -37,6 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit;
                 }
                 
+                // Prevent using admin email for registration
+                if ($data['email'] === ADMIN_EMAIL) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'This email is reserved for administration']);
+                    exit;
+                }
+                
                 // Check if user exists
                 $check_query = "SELECT id FROM users WHERE email = :email";
                 $check_stmt = $db->prepare($check_query);
@@ -49,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit;
                 }
                 
-                // Create user
-                $query = "INSERT INTO users SET name=:name, email=:email, password_hash=:password_hash";
+                // Create user (always as customer)
+                $query = "INSERT INTO users SET name=:name, email=:email, password_hash=:password_hash, role='customer'";
                 $stmt = $db->prepare($query);
                 
                 $name = htmlspecialchars(strip_tags($data['name']));
@@ -89,7 +100,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit;
                 }
                 
-                $query = "SELECT id, name, email, password_hash, role FROM users WHERE email = :email";
+                // Check for hardcoded admin first
+                if ($data['email'] === ADMIN_EMAIL) {
+                    if (password_verify($data['password'], ADMIN_PASSWORD_HASH)) {
+                        // Check if admin exists in database, if not create it
+                        $check_admin = "SELECT id, name, email, role FROM users WHERE email = :email AND role = 'admin'";
+                        $admin_stmt = $db->prepare($check_admin);
+                        $admin_stmt->bindParam(':email', ADMIN_EMAIL);
+                        $admin_stmt->execute();
+                        
+                        if ($admin_stmt->rowCount() > 0) {
+                            $admin = $admin_stmt->fetch(PDO::FETCH_ASSOC);
+                            $_SESSION['user_id'] = $admin['id'];
+                            $_SESSION['user_email'] = $admin['email'];
+                            $_SESSION['user_name'] = $admin['name'];
+                            $_SESSION['user_role'] = 'admin';
+                        } else {
+                            // Create admin user in database
+                            $create_admin = "INSERT INTO users SET name='Administrator', email=:email, password_hash=:password_hash, role='admin'";
+                            $create_stmt = $db->prepare($create_admin);
+                            $create_stmt->bindParam(':email', ADMIN_EMAIL);
+                            $create_stmt->bindParam(':password_hash', ADMIN_PASSWORD_HASH);
+                            $create_stmt->execute();
+                            
+                            $_SESSION['user_id'] = $db->lastInsertId();
+                            $_SESSION['user_email'] = ADMIN_EMAIL;
+                            $_SESSION['user_name'] = 'Administrator';
+                            $_SESSION['user_role'] = 'admin';
+                        }
+                        
+                        echo json_encode([
+                            'message' => 'Admin login successful',
+                            'user' => [
+                                'id' => $_SESSION['user_id'],
+                                'name' => $_SESSION['user_name'],
+                                'email' => $_SESSION['user_email'],
+                                'role' => 'admin'
+                            ]
+                        ]);
+                    } else {
+                        http_response_code(401);
+                        echo json_encode(['error' => 'Invalid admin credentials']);
+                    }
+                    break;
+                }
+                
+                // Regular user login
+                $query = "SELECT id, name, email, password_hash, role FROM users WHERE email = :email AND role = 'customer'";
                 $stmt = $db->prepare($query);
                 $stmt->bindParam(':email', $data['email']);
                 $stmt->execute();
