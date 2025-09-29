@@ -1,6 +1,3 @@
--- Create database and user (will be created by docker-compose env vars)
--- Use the muffin_shop database
-
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS order_items;
