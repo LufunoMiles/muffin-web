@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweet Delights Muffin Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff6b6b;
-            --primary-dark: #ff5252;
-            --secondary-color: #4ecdc4;
-            --accent-color: #ffe66d;
-            --text-primary: #2c3e50;
-            --text-secondary: #7f8c8d;
-            --background: #fefefe;
-            --surface: #ffffff;
-            --border: #e8ecef;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --primary-color: #8B4513;
+            --primary-light: #A0522D;
+            --primary-dark: #654321;
+            --secondary-color: #D2B48C;
+            --accent-color: #DEB887;
+            --text-primary: #3E2723;
+            --text-secondary: #5D4037;
+            --background: #F5F5DC;
+            --surface: #FFF8E1;
+            --border: #E6D2AA;
+            --shadow: 0 4px 20px rgba(139, 69, 19, 0.1);
+            --shadow-hover: 0 8px 30px rgba(139, 69, 19, 0.15);
             --border-radius: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -32,13 +34,12 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background-color: var(--background);
             min-height: 100vh;
         }
 
         .navbar {
             background: var(--surface);
-            backdrop-filter: blur(20px);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
@@ -95,8 +96,24 @@
 
         .nav-links a:hover {
             color: var(--primary-color);
-            background: rgba(255, 107, 107, 0.1);
+            background: rgba(139, 69, 19, 0.1);
             transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         .container {
@@ -126,16 +143,14 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
         .hero h2 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary-color);
         }
 
         .hero p {
@@ -170,7 +185,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: rgba(255, 255, 255, 0.2);
             transition: left 0.5s;
         }
 
@@ -179,14 +194,15 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            background: var(--primary-color);
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+            background: var(--primary-dark);
         }
 
         .btn-secondary {
@@ -237,7 +253,7 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
         }
 
         .form-group label {
@@ -283,7 +299,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background: var(--primary-color);
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
@@ -422,85 +438,139 @@
         }
 
         .status-pending { 
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7); 
+            background: #FFF3CD; 
             color: #856404; 
         }
         .status-confirmed { 
-            background: linear-gradient(135deg, #d1ecf1, #74b9ff); 
-            color: #0c5460; 
+            background: #D1ECF1; 
+            color: #0C5460; 
         }
         .status-shipped { 
-            background: linear-gradient(135deg, #d4edda, #00b894); 
+            background: #D4EDDA; 
             color: #155724; 
         }
         .status-delivered { 
-            background: linear-gradient(135deg, #d1e7dd, #00cec9); 
-            color: #0f5132; 
+            background: #D1E7DD; 
+            color: #0F5132; 
         }
 
-        .admin-tabs {
-            display: flex;
-            gap: 0.5rem;
+        /* Payment Section Styles */
+        .payment-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .payment-section h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
             margin-bottom: 2rem;
-            background: var(--surface);
-            padding: 0.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            color: var(--primary-color);
+            font-size: 2rem;
         }
 
-        .tab-btn {
-            padding: 1rem 1.5rem;
-            border: none;
-            background: transparent;
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-method {
+            background: var(--background);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--border);
             cursor: pointer;
-            border-radius: 8px;
-            font-weight: 500;
             transition: var(--transition);
-            color: var(--text-secondary);
+            text-align: center;
         }
 
-        .tab-btn.active {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+        .payment-method:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
         }
 
-        .admin-tab-content {
+        .payment-method.active {
+            border-color: var(--primary-color);
+            background: rgba(139, 69, 19, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .payment-details {
             display: none;
-            background: var(--surface);
+            margin-top: 2rem;
             padding: 2rem;
+            background: var(--background);
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
-        .admin-tab-content.active {
+        .payment-details.active {
             display: block;
             animation: fadeIn 0.3s ease-in-out;
         }
 
-        #add-product-form input,
-        #add-product-form textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border: 2px solid var(--border);
+        .receipt {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: var(--surface);
             border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--background);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
-        #add-product-form input:focus,
-        #add-product-form textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
         }
 
-        #add-product-form textarea {
-            height: 120px;
-            resize: vertical;
-            font-family: inherit;
+        .receipt-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .receipt-details {
+            margin-bottom: 2rem;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .receipt-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-top: 2px solid var(--border);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .receipt-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .notification {
@@ -515,7 +585,6 @@
             transform: translateX(400px);
             transition: var(--transition);
             box-shadow: var(--shadow-hover);
-            backdrop-filter: blur(10px);
         }
 
         .notification.show {
@@ -523,15 +592,15 @@
         }
 
         .notification.success {
-            background: linear-gradient(135deg, #00b894, #00cec9);
+            background: #28a745;
         }
 
         .notification.error {
-            background: linear-gradient(135deg, #e17055, #d63031);
+            background: #dc3545;
         }
 
         .notification.info {
-            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            background: #17a2b8;
         }
 
         .section-header {
@@ -578,6 +647,337 @@
             margin-bottom: 2rem;
         }
 
+        /* New Sections Styles */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 3rem 0;
+        }
+
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .testimonials {
+            margin: 4rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-color);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+        }
+
+        .step h4 {
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .contact-info {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .contact-details h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .contact-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--background);
+            font-family: inherit;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .footer {
+            background: var(--surface);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 768px) {
             .nav-container {
                 flex-direction: column;
@@ -613,8 +1013,25 @@
                 align-items: flex-start;
             }
 
-            .admin-tabs {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
                 flex-direction: column;
+                gap: 2rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -651,89 +1068,205 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <h1 class="logo"></h1>
+            <h1 class="logo">Sweet Delights</h1>
             <div class="nav-links">
-                <a href="#" onclick="showSection('home')">Home</a>
+                <a href="#" onclick="showSection('home')"> Home</a>
+                <a href="#" onclick="showSection('about')"> About</a>
                 <a href="#" onclick="showSection('products')">Products</a>
-                <a href="#" onclick="showSection('cart')">Cart</a>
+                <a href="#" onclick="showSection('cart')" class="cart-link">
+                Cart
+                    <span id="cart-count" class="cart-badge" style="display: none;">0</span>
+                </a>
                 <a href="#" onclick="showSection('orders')">My Orders</a>
+                <a href="#" onclick="showSection('contact')">Contact</a>
                 <div id="auth-links">
                     <a href="#" onclick="showSection('login')">Login</a>
-                    <a href="#" onclick="showSection('register')">Register</a>
-                </div>
-                <div id="admin-links" style="display: none;">
-                    <a href="#" onclick="showSection('admin')">Admin</a>
+                    <a href="#" onclick="showSection('register')"> Register</a>
                 </div>
                 <div id="user-info" style="display: none;">
                     <span id="user-name"></span>
-                    <a href="#" onclick="logout()">Logout</a>
+                    <a href="#" onclick="logout()"><i class="ri-logout-box-r-line"></i> Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container">
-    
         <section id="home" class="section active">
             <div class="hero">
                 <h2>Freshly Baked Delights</h2>
                 <p>Discover our artisanal collection of muffins, made with love and the finest ingredients. Each bite is a moment of pure bliss.</p>
                 <button onclick="showSection('products')" class="btn btn-primary">
-                    Explore Our Menu ✨
+                    <i class="ri-cake-2-line"></i> Explore Our Menu
                 </button>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ri-leaf-line"></i></div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>We use only the freshest, highest quality ingredients in all our baked goods.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ri-user-star-line"></i></div>
+                    <h3>Artisan Crafted</h3>
+                    <p>Each muffin is carefully handcrafted by our skilled bakers with attention to detail.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ri-truck-line"></i></div>
+                    <h3>Fast Delivery</h3>
+                    <p>Get your favorite muffins delivered fresh to your doorstep in no time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="ri-gift-line"></i></div>
+                    <h3>Special Occasions</h3>
+                    <p>Perfect for birthdays, anniversaries, or just because you deserve a treat.</p>
+                </div>
+            </div>
+
+            <div class="testimonials">
+                <div class="section-header">
+                    <h2>What Our Customers Say</h2>
+                    <p>Don't just take our word for it - hear from our satisfied customers</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The blueberry muffins are absolutely divine! I order them every week for my family. They're always fresh and delicious."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="/placeholder.svg?height=50&width=50" alt="Sarah Johnson">
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>Regular Customer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "I ordered a custom batch for my daughter's birthday party and everyone raved about them. The service was exceptional too!"
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="/placeholder.svg?height=50&width=5" alt="Michael Torres">
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Torres</h4>
+                                <p>Happy Parent</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "As a coffee shop owner, I source all my muffins from Sweet Delights. My customers love them and they're always perfectly baked."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="/placeholder.svg?height=50&width=50" alt="Emily Chen">
+                            </div>
+                            <div class="author-info">
+                                <h4>Emily Chen</h4>
+                                <p>Business Owner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-         
-        <!-- Login Section -->
-<section id="login" class="section">
-    <div class="auth-form">
-        <h2>Welcome Back</h2>
-        <!-- ADD THIS LINE -->
-        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">
-            Admin access: admin@muffinshop.com
-        </p>
-        <form id="login-form">
-            <div class="form-group">
-                <input type="email" id="login-email" placeholder=" " required>
-                <label>Email Address</label>
+        <section id="about" class="section">
+            <div class="section-header">
+                <h2>Our Story</h2>
+                <p>From a small family kitchen to your favorite muffin destination</p>
             </div>
-            <div class="form-group">
-                <input type="password" id="login-password" placeholder=" " required>
-                <label>Password</label>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="/public/img/stacked.jpg" alt="Our Bakery">
+                </div>
+                <div class="about-text">
+                    <h3>Baking With Love Since 2010</h3>
+                    <p>Sweet Delights began as a passion project in our family kitchen. What started with a simple blueberry muffin recipe passed down through generations has blossomed into a beloved local bakery.</p>
+                    <p>We believe that the best muffins come from the heart. That's why we still use traditional baking methods combined with innovative flavors to create treats that bring joy to every bite.</p>
+                    <p>Our commitment to quality means we never compromise on ingredients. We source locally when possible and always bake fresh daily.</p>
+                    <button onclick="showSection('products')" class="btn btn-primary">
+                        <i class="ri-cake-2-line"></i> Try Our Muffins
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
-                Sign In
-            </button>
-        </form>
-        <p style="text-align: center; color: var(--text-secondary);">
-            Don't have an account? 
-            <a href="#" onclick="showSection('register')" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
-                Create one here
-            </a>
-        </p>
-    </div>
-</section>
 
-         
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number"><i class="ri-ingredients-line"></i></div>
+                    <h4>Select Ingredients</h4>
+                    <p>We carefully select the finest ingredients for optimal flavor and quality.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"><i class="ri-mix-line"></i></div>
+                    <h4>Mix & Prepare</h4>
+                    <p>Our bakers prepare each batch with precision and attention to detail.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"><i class="ri-fire-line"></i></div>
+                    <h4>Bake to Perfection</h4>
+                    <p>We bake at the perfect temperature for that golden-brown finish.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number"><i class="ri-checkbox-circle-line"></i></div>
+                    <h4>Quality Check</h4>
+                    <p>Every muffin is inspected to ensure it meets our high standards.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <div class="auth-form">
+                <h2>Welcome Back</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">
+                   
+                </p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <input type="email" id="login-email" placeholder=" " required>
+                        <label><i class="ri-mail-line"></i> Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-password" placeholder=" " required>
+                        <label><i class="ri-lock-line"></i> Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        <i class="ri-login-box-line"></i> Sign In
+                    </button>
+                </form>
+                <p style="text-align: center; color: var(--text-secondary);">
+                    Don't have an account? 
+                    <a href="#" onclick="showSection('register')" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+                        Create one here
+                    </a>
+                </p>
+            </div>
+        </section>
+
         <section id="register" class="section">
             <div class="auth-form">
                 <h2>Join Our Family</h2>
                 <form id="register-form">
                     <div class="form-group">
                         <input type="text" id="register-name" placeholder=" " required>
-                        <label>Full Name</label>
+                        <label><i class="ri-user-line"></i> Full Name</label>
                     </div>
                     <div class="form-group">
                         <input type="email" id="register-email" placeholder=" " required>
-                        <label>Email Address</label>
+                        <label><i class="ri-mail-line"></i> Email Address</label>
                     </div>
                     <div class="form-group">
                         <input type="password" id="register-password" placeholder=" " required>
-                        <label>Password</label>
+                        <label><i class="ri-lock-line"></i> Password</label>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
-                        Create Account
+                        <i class="ri-user-add-line"></i> Create Account
                     </button>
                 </form>
                 <p style="text-align: center; color: var(--text-secondary);">
@@ -745,14 +1278,13 @@
             </div>
         </section>
 
-     
         <section id="products" class="section">
             <div class="section-header">
                 <h2>Our Delicious Muffins</h2>
                 <p>Handcrafted with premium ingredients and baked fresh daily</p>
             </div>
             <div id="products-grid" class="products-grid">
-                 Products will be loaded here 
+                <!-- Products will be loaded here -->
             </div>
         </section>
 
@@ -762,781 +1294,954 @@
                 <p>Review your selected items before checkout</p>
             </div>
             <div id="cart-items">
-                  
+                <!-- Cart items will be loaded here -->
             </div>
             <div id="cart-total" class="cart-total" style="display: none;">
-                <h3>Total: $<span id="total-amount">0.00</span></h3>
-                <button onclick="checkout()" class="btn btn-primary">
-                    Proceed to Checkout 🛒
+                <h3>Total: R<span id="total-amount">0.00</span></h3>
+                <button onclick="showSection('payment')" class="btn btn-primary">
+                    <i class="ri-shopping-cart-line"></i> Proceed to Payment
                 </button>
             </div>
         </section>
 
-    
+        <!-- Payment Section -->
+        <section id="payment" class="section">
+            <div class="payment-section">
+                <h2>Payment Method</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                    Select your preferred payment method to complete your order
+                </p>
+                
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectPaymentMethod('credit-card')">
+                        <div class="payment-icon"><i class="ri-bank-card-line"></i></div>
+                        <h3>Credit Card</h3>
+                        <p>Pay with Visa, Mastercard, or American Express</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('paypal')">
+                        <div class="payment-icon"><i class="ri-paypal-line"></i></div>
+                        <h3>PayPal</h3>
+                        <p>Pay securely with your PayPal account</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('bank-transfer')">
+                        <div class="payment-icon"><i class="ri-bank-line"></i></div>
+                        <h3>Bank Transfer</h3>
+                        <p>Direct transfer from your bank account</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('cash')">
+                        <div class="payment-icon"><i class="ri-money-dollar-circle-line"></i></div>
+                        <h3>Cash on Delivery</h3>
+                        <p>Pay when you receive your order</p>
+                    </div>
+                </div>
+
+                <!-- Credit Card Payment Form -->
+                <div id="credit-card-details" class="payment-details">
+                    <h3 style="margin-bottom: 1.5rem;">Credit Card Details</h3>
+                    <form id="credit-card-form">
+                        <div class="form-group">
+                            <input type="text" id="card-number" placeholder=" " required>
+                            <label><i class="ri-bank-card-line"></i> Card Number</label>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <input type="text" id="expiry-date" placeholder=" " required>
+                                <label>Expiry Date (MM/YY)</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="cvv" placeholder=" " required>
+                                <label>CVV</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="cardholder-name" placeholder=" " required>
+                            <label><i class="ri-user-line"></i> Cardholder Name</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                            <i class="ri-lock-line"></i> Pay R<span id="credit-card-total">0.00</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- PayPal Payment Form -->
+                <div id="paypal-details" class="payment-details">
+                    <h3 style="margin-bottom: 1.5rem;">PayPal Payment</h3>
+                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        You will be redirected to PayPal to complete your payment
+                    </p>
+                    <button onclick="processPayPalPayment()" class="btn btn-primary" style="width: 100%;">
+                        <i class="ri-paypal-line"></i> Pay R<span id="paypal-total">0.00</span> with PayPal
+                    </button>
+                </div>
+
+                <!-- Bank Transfer Details -->
+                <div id="bank-transfer-details" class="payment-details">
+                    <h3 style="margin-bottom: 1.5rem;">Bank Transfer Details</h3>
+                    <div style="background: var(--background); padding: 1.5rem; border-radius: var(--border-radius); margin-bottom: 1.5rem;">
+                        <p><strong>Bank Name:</strong> Sweet Delights Bank</p>
+                        <p><strong>Account Name:</strong> Sweet Delights Muffin Shop</p>
+                        <p><strong>Account Number:</strong> 1234 5678 9012 3456</p>
+                        <p><strong>Branch Code:</strong> 123456</p>
+                        <p><strong>Reference:</strong> Order #<span id="bank-reference">0000</span></p>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                        Please use the reference number above when making your payment. Your order will be processed once payment is received.
+                    </p>
+                    <button onclick="processBankTransfer()" class="btn btn-primary" style="width: 100%;">
+                        <i class="ri-check-line"></i> Confirm Bank Transfer
+                    </button>
+                </div>
+
+                <!-- Cash on Delivery Details -->
+                <div id="cash-details" class="payment-details">
+                    <h3 style="margin-bottom: 1.5rem;">Cash on Delivery</h3>
+                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Please have R<span id="cash-total">0.00</span> ready for our delivery driver
+                    </p>
+                    <button onclick="processCashPayment()" class="btn btn-primary" style="width: 100%;">
+                        <i class="ri-check-line"></i> Confirm Cash on Delivery
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Receipt Section -->
+        <section id="receipt" class="section">
+            <div class="receipt">
+                <div class="receipt-header">
+                    <h2>Sweet Delights Muffin Shop</h2>
+                    <p>Order Confirmation</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                        Thank you for your order!
+                    </p>
+                </div>
+                
+                <div class="receipt-details">
+                    <div class="receipt-item">
+                        <span>Order Number:</span>
+                        <span id="receipt-order-number">#0000</span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Date:</span>
+                        <span id="receipt-date">01 Jan 2023</span>
+                    </div>
+                    <div class="receipt-item">
+                        <span>Payment Method:</span>
+                        <span id="receipt-payment-method">Credit Card</span>
+                    </div>
+                </div>
+
+                <div style="margin: 1.5rem 0;">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Order Items</h3>
+                    <div id="receipt-items">
+                        <!-- Receipt items will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="receipt-total">
+                    <span>Total:</span>
+                    <span>R<span id="receipt-total">0.00</span></span>
+                </div>
+
+                <div class="receipt-footer">
+                    <p>Thank you for shopping with Sweet Delights!</p>
+                    <p>We hope you enjoy your delicious muffins.</p>
+                    <p style="margin-top: 1rem;">
+                        <button onclick="printReceipt()" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                            <i class="ri-printer-line"></i> Print Receipt
+                        </button>
+                        <button onclick="showSection('home')" class="btn btn-primary">
+                            <i class="ri-home-4-line"></i> Back to Home
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <section id="orders" class="section">
             <div class="section-header">
                 <h2>Order History</h2>
                 <p>Track your past and current orders</p>
             </div>
             <div id="orders-list">
-                 Orders will be loaded here 
+                <!-- Orders will be loaded here -->
             </div>
         </section>
 
-      <!-- Admin Section -->
-<section id="admin" class="section">
-    <div class="section-header">
-        <h2>Admin Dashboard</h2>
-        <p>Manage products and orders</p>
-    </div>
-    
-    <div class="admin-tabs">
-        <button class="tab-btn active" onclick="openAdminTab('add-product')">Add Product</button>
-        <button class="tab-btn" onclick="openAdminTab('manage-orders')">Manage Orders</button>
-        <button class="tab-btn" onclick="openAdminTab('manage-products')">Manage Products</button>
-    </div>
-
-    <div id="add-product" class="admin-tab-content active">
-        <form id="add-product-form" enctype="multipart/form-data">
-            <input type="text" name="name" placeholder="Product Name" required>
-            <textarea name="description" placeholder="Product Description"></textarea>
-            <input type="number" name="price" step="0.01" placeholder="Price ($)" required>
-            <input type="number" name="stock" placeholder="Stock Quantity" required>
-            <input type="file" name="image" accept="image/*" style="margin-bottom: 2rem;">
-            <button type="submit" class="btn btn-primary" style="width: 100%;">
-                Add Product 🧁
-            </button>
-        </form>
-    </div>
-
-    <div id="manage-orders" class="admin-tab-content">
-        <div id="admin-orders-list">
-            <!-- Admin orders will be loaded here -->
-        </div>
-    </div>
-
-    <div id="manage-products" class="admin-tab-content">
-        <div id="admin-products-list">
-            <!-- Products management will be loaded here -->
-        </div>
-    </div>
-</section> 
-      
+        <section id="contact" class="section">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ri-map-pin-line"></i></div>
+                        <div class="contact-details">
+                            <h4>Our Location</h4>
+                            <p>123 Baker Street, Sweetville, SV 12345</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ri-phone-line"></i></div>
+                        <div class="contact-details">
+                            <h4>Phone Number</h4>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ri-mail-line"></i></div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <p>hello@sweetdelights.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ri-time-line"></i></div>
+                        <div class="contact-details">
+                            <h4>Opening Hours</h4>
+                            <p>Monday - Saturday: 7am - 7pm<br>Sunday: 8am - 5pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="contact-name" placeholder=" " required>
+                            <label><i class="ri-user-line"></i> Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contact-email" placeholder=" " required>
+                            <label><i class="ri-mail-line"></i> Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="contact-subject" placeholder=" " required>
+                            <label><i class="ri-chat-3-line"></i> Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="contact-message" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="ri-send-plane-line"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Sweet Delights</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Freshly baked muffins made with love and the finest ingredients.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
+                        <a href="#" class="social-link"><i class="ri-instagram-line"></i></a>
+                        <a href="#" class="social-link"><i class="ri-twitter-line"></i></a>
+                        <a href="#" class="social-link"><i class="ri-youtube-line"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showSection('home')"><i class="ri-home-4-line"></i> Home</a></li>
+                        <li><a href="#" onclick="showSection('about')"><i class="ri-information-line"></i> About Us</a></li>
+                        <li><a href="#" onclick="showSection('products')"><i class="ri-cake-2-line"></i> Our Products</a></li>
+                        <li><a href="#" onclick="showSection('contact')"><i class="ri-contacts-line"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showSection('login')"><i class="ri-login-box-line"></i> My Account</a></li>
+                        <li><a href="#" onclick="showSection('orders')"><i class="ri-file-list-line"></i> Order Tracking</a></li>
+                        <li><a href="#"><i class="ri-truck-line"></i> Shipping Policy</a></li>
+                        <li><a href="#"><i class="ri-refresh-line"></i> Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Subscribe to get special offers and baking tips.</p>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <input type="email" id="newsletter-email" placeholder="Your email address" style="width: 100%;">
+                    </div>
+                    <button onclick="subscribeNewsletter()" class="btn btn-primary" style="width: 100%;"><i class="ri-mail-send-line"></i> Subscribe</button>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Sweet Delights Muffin Shop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <div id="notification" class="notification"></div>
 
     <script>
-  const API_BASE = '/api';
-
-class MuffinShop {
-    constructor() {
-        this.currentUser = null;
-        this.init();
-    }
-
-    async init() {
-        await this.checkAuth();
-        this.setupEventListeners();
-        this.loadProducts();
-    }
-
-    setupEventListeners() {
-        // Auth forms
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const addProductForm = document.getElementById('add-product-form');
-        
-        if (loginForm) {
-            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
-        }
-        if (registerForm) {
-            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
-        }
-        if (addProductForm) {
-            addProductForm.addEventListener('submit', (e) => this.handleAddProduct(e));
-        }
-    }
-
-    async checkAuth() {
-        try {
-            const response = await fetch(`${API_BASE}/auth?action=check`, {
-                credentials: 'include'
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        // Sweet Delights Muffin Shop - Complete Customer Experience with Payment System
+        class MuffinShop {
+            constructor() {
+                this.currentUser = null;
+                this.products = [];
+                this.cart = [];
+                this.orders = [];
+                this.users = [
+                    {
+                        id: 1,
+                        name: "Demo Customer",
+                        email: "customer@example.com",
+                        password: "123456",
+                        role: "customer"
+                    }
+                ];
+                this.nextUserId = 2;
+                this.nextProductId = 1;
+                this.nextOrderId = 1;
+                this.selectedPaymentMethod = null;
+                
+                this.init();
             }
-            
-            const data = await response.json();
-            
-            if (data.loggedIn) {
-                this.currentUser = data.user;
-                this.updateUIForUser();
-            } else {
-                this.updateUIForGuest();
+
+            init() {
+                this.setupEventListeners();
+                this.loadSampleProducts();
+                this.checkAuth();
+                this.updateCartBadge();
             }
-        } catch (error) {
-            console.error('Auth check failed:', error);
-            this.updateUIForGuest();
-        }
-    }
 
-    updateUIForUser() {
-        const authLinks = document.getElementById('auth-links');
-        const userInfo = document.getElementById('user-info');
-        const adminLinks = document.getElementById('admin-links');
-        const userName = document.getElementById('user-name');
-        
-        if (authLinks) authLinks.style.display = 'none';
-        if (userInfo) userInfo.style.display = 'flex';
-        if (userName) userName.textContent = `Hello, ${this.currentUser.name}`;
-        
-        if (adminLinks) {
-            if (this.currentUser.role === 'admin') {
-                adminLinks.style.display = 'block';
-                // Load admin data if on admin page
-                if (document.getElementById('admin')?.classList.contains('active')) {
-                    this.loadAdminOrders();
-                    this.loadAdminProducts();
-                }
-            } else {
-                adminLinks.style.display = 'none';
+            setupEventListeners() {
+                // Auth forms
+                document.getElementById('login-form')?.addEventListener('submit', (e) => this.handleLogin(e));
+                document.getElementById('register-form')?.addEventListener('submit', (e) => this.handleRegister(e));
+                
+                // Contact form
+                document.getElementById('contact-form')?.addEventListener('submit', (e) => this.handleContact(e));
+                
+                // Credit card form
+                document.getElementById('credit-card-form')?.addEventListener('submit', (e) => this.handleCreditCardPayment(e));
             }
-        }
-        
-        // Load user-specific data
-        this.loadCart();
-        this.loadOrders();
-    }
 
-    updateUIForGuest() {
-        const authLinks = document.getElementById('auth-links');
-        const userInfo = document.getElementById('user-info');
-        const adminLinks = document.getElementById('admin-links');
-        
-        if (authLinks) authLinks.style.display = 'flex';
-        if (userInfo) userInfo.style.display = 'none';
-        if (adminLinks) adminLinks.style.display = 'none';
-    }
+            loadSampleProducts() {
+                this.products = [
+                    {
+                        id: this.nextProductId++,
+                        name: "Classic Blueberry",
+                        description: "Juicy blueberries in a soft, buttery muffin base",
+                        price: 45.99,
+                        stock: 15,
+                        image: "/img/ana-achim-0O7eJfNdgHc-unsplash.jpg"
+                    },
+                    {
+                        id: this.nextProductId++,
+                        name: "Double Chocolate",
+                        description: "Rich chocolate muffin with chocolate chips throughout",
+                        price: 52.50,
+                        stock: 12,
+                        image: "/placeholder.svg?height=220&width=320"
+                    },
+                    {
+                        id: this.nextProductId++,
+                        name: "Banana Nut",
+                        description: "Moist banana muffin with crunchy walnuts",
+                        price: 42.75,
+                        stock: 8,
+                        image: "/placeholder.svg?height=220&width=320"
+                    },
+                    {
+                        id: this.nextProductId++,
+                        name: "Lemon Poppy Seed",
+                        description: "Zesty lemon flavor with poppy seeds for texture",
+                        price: 39.50,
+                        stock: 10,
+                        image: "/placeholder.svg?height=220&width=320"
+                    },
+                    {
+                        id: this.nextProductId++,
+                        name: "Apple Cinnamon",
+                        description: "Warm apple and cinnamon in a spiced muffin",
+                        price: 41.25,
+                        stock: 14,
+                        image: "/placeholder.svg?height=220&width=320"
+                    },
+                    {
+                        id: this.nextProductId++,
+                        name: "Carrot Cake",
+                        description: "Moist carrot muffin with cream cheese flavor",
+                        price: 48.00,
+                        stock: 9,
+                        image: "/placeholder.svg?height=220&width=320"
+                    }
+                ];
+                
+                this.renderProducts();
+            }
 
-    async handleLogin(e) {
-        e.preventDefault();
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span class="loading"></span> Signing In...';
-        submitBtn.disabled = true;
-
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        try {
-            const response = await fetch(`${API_BASE}/auth`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'login',
-                    email: email,
-                    password: password
-                }),
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                if (data.user.role === 'admin') {
-                    this.showNotification('Welcome back, Administrator! 👑', 'success');
+            checkAuth() {
+                // Check if user is logged in
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.updateUIForUser();
                 } else {
-                    this.showNotification(`Welcome back, ${data.user.name}! 🎉`, 'success');
+                    this.updateUIForGuest();
                 }
-                this.currentUser = data.user;
-                this.updateUIForUser();
-                showSection('home');
-                e.target.reset();
-            } else {
-                this.showNotification(data.error || 'Login failed', 'error');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            this.showNotification('Connection error. Please try again.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async handleRegister(e) {
-        e.preventDefault();
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span class="loading"></span> Creating Account...';
-        submitBtn.disabled = true;
-
-        const formData = new FormData(e.target);
-        const userData = {
-            action: 'register',
-            name: formData.get('name'),
-            email: formData.get('email'),
-            password: formData.get('password')
-        };
-
-        try {
-            const response = await fetch(`${API_BASE}/auth`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData),
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.showNotification('Account created successfully! 🎉', 'success');
-                this.currentUser = data.user;
-                this.updateUIForUser();
-                showSection('home');
-                e.target.reset();
-            } else {
-                this.showNotification(data.error || 'Registration failed', 'error');
-            }
-        } catch (error) {
-            console.error('Registration error:', error);
-            this.showNotification('Connection error. Please try again.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    }
-
-    async logout() {
-        try {
-            await fetch(`${API_BASE}/auth`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'logout' }),
-                credentials: 'include'
-            });
-            
-            this.currentUser = null;
-            this.updateUIForGuest();
-            this.showNotification('See you soon! 👋', 'info');
-            showSection('home');
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    }
-
-    async loadProducts() {
-        try {
-            const response = await fetch(`${API_BASE}/products`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const products = await response.json();
-            this.renderProducts(products);
-        } catch (error) {
-            console.error('Failed to load products:', error);
-            this.renderProducts([]);
-        }
-    }
-
-    renderProducts(products) {
-        const grid = document.getElementById('products-grid');
-        if (!grid) return;
-        
-        if (products.length === 0) {
-            grid.innerHTML = `
-                <div class="empty-state" style="grid-column: 1 / -1;">
-                    <div class="empty-state-icon">🧁</div>
-                    <h3>No Products Available</h3>
-                    <p>Check back soon for delicious muffins!</p>
-                </div>
-            `;
-            return;
-        }
-
-        grid.innerHTML = products.map(product => `
-            <div class="product-card">
-                <img src="${product.image_url || '/placeholder.svg?height=220&width=320'}" alt="${product.name}" class="product-image">
-                <div class="product-info">
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-description">${product.description}</div>
-                    <div class="product-price">$${parseFloat(product.price).toFixed(2)}</div>
-                    <div class="product-stock">📦 ${product.stock} available</div>
-                    <div class="product-actions">
-                        <input type="number" class="quantity-input" value="1" min="1" max="${product.stock}" id="qty-${product.id}">
-                        <button onclick="addToCart(${product.id})" class="btn btn-primary" ${product.stock === 0 ? 'disabled' : ''}>
-                            ${product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    async addToCart(productId) {
-        if (!this.currentUser) {
-            this.showNotification('Please sign in to add items to your cart 🔐', 'error');
-            showSection('login');
-            return;
-        }
-
-        const quantityInput = document.getElementById(`qty-${productId}`);
-        if (!quantityInput) {
-            this.showNotification('Product not found', 'error');
-            return;
-        }
-
-        const quantity = parseInt(quantityInput.value);
-        if (isNaN(quantity) || quantity < 1) {
-            this.showNotification('Please enter a valid quantity', 'error');
-            return;
-        }
-
-        try {
-            const response = await fetch(`${API_BASE}/cart`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    action: 'add',
-                    product_id: productId,
-                    quantity: quantity
-                }),
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.showNotification('Added to cart! 🛒', 'success');
-                this.loadCart();
-            } else {
-                this.showNotification(data.error || 'Failed to add to cart', 'error');
-            }
-        } catch (error) {
-            console.error('Add to cart error:', error);
-            this.showNotification('Connection error. Please try again.', 'error');
-        }
-    }
-
-    async loadCart() {
-        if (!this.currentUser) return;
-
-        try {
-            const response = await fetch(`${API_BASE}/cart`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'get' }),
-                credentials: 'include'
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const data = await response.json();
-            this.renderCart(data);
-        } catch (error) {
-            console.error('Failed to load cart:', error);
-        }
-    }
-
-    renderCart(cartData) {
-        const cartItems = document.getElementById('cart-items');
-        const cartTotal = document.getElementById('cart-total');
-        
-        if (!cartItems) return;
-
-        if (!cartData.items || cartData.items.length === 0) {
-            cartItems.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">🛒</div>
-                    <h3>Your Cart is Empty</h3>
-                    <p>Add some delicious muffins to get started!</p>
-                    <button onclick="showSection('products')" class="btn btn-primary">
-                        Browse Products
-                    </button>
-                </div>
-            `;
-            if (cartTotal) cartTotal.style.display = 'none';
-            return;
-        }
-
-        cartItems.innerHTML = cartData.items.map(item => `
-            <div class="cart-item">
-                <img src="${item.image_url || '/placeholder.svg?height=100&width=100'}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h4>${item.name}</h4>
-                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Quantity: ${item.quantity}</p>
-                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">$${parseFloat(item.price).toFixed(2)} each</p>
-                    <p style="font-weight: 600; color: var(--primary-color);">Total: $${parseFloat(item.item_total).toFixed(2)}</p>
-                </div>
-            </div>
-        `).join('');
-
-        const totalAmount = document.getElementById('total-amount');
-        if (totalAmount && cartTotal) {
-            totalAmount.textContent = parseFloat(cartData.total).toFixed(2);
-            cartTotal.style.display = 'block';
-        }
-    }
-
-    async checkout() {
-        if (!this.currentUser) return;
-
-        const checkoutBtn = document.querySelector('#cart-total button');
-        if (!checkoutBtn) return;
-
-        const originalText = checkoutBtn.innerHTML;
-        checkoutBtn.innerHTML = '<span class="loading"></span> Processing...';
-        checkoutBtn.disabled = true;
-
-        try {
-            const response = await fetch(`${API_BASE}/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.showNotification('Order placed successfully! 🎉', 'success');
+            updateUIForUser() {
+                const authLinks = document.getElementById('auth-links');
+                const userInfo = document.getElementById('user-info');
+                const userName = document.getElementById('user-name');
+                
+                if (authLinks) authLinks.style.display = 'none';
+                if (userInfo) userInfo.style.display = 'flex';
+                if (userName) userName.textContent = `Hello, ${this.currentUser.name}`;
+                
+                // Load user-specific data
                 this.loadCart();
                 this.loadOrders();
-                showSection('orders');
-            } else {
-                this.showNotification(data.error || 'Checkout failed', 'error');
-            }
-        } catch (error) {
-            console.error('Checkout error:', error);
-            this.showNotification('Connection error. Please try again.', 'error');
-        } finally {
-            checkoutBtn.innerHTML = originalText;
-            checkoutBtn.disabled = false;
-        }
-    }
-
-    async loadOrders() {
-        if (!this.currentUser) return;
-
-        try {
-            const response = await fetch(`${API_BASE}/orders`, {
-                credentials: 'include'
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const orders = await response.json();
-            this.renderOrders(orders);
-        } catch (error) {
-            console.error('Failed to load orders:', error);
-        }
-    }
-
-    renderOrders(orders) {
-        const ordersList = document.getElementById('orders-list');
-        if (!ordersList) return;
-
-        if (!orders || orders.length === 0) {
-            ordersList.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">📋</div>
-                    <h3>No Orders Yet</h3>
-                    <p>Your order history will appear here once you make your first purchase.</p>
-                    <button onclick="showSection('products')" class="btn btn-primary">
-                        Start Shopping
-                    </button>
-                </div>
-            `;
-            return;
-        }
-
-        ordersList.innerHTML = orders.map(order => `
-            <div class="order-card">
-                <div class="order-header">
-                    <h3>Order #${order.id}</h3>
-                    <span class="order-status status-${order.status}">${order.status}</span>
-                </div>
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">
-                    Total: $${parseFloat(order.total_price).toFixed(2)}
-                </p>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    📅 ${new Date(order.created_at).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                    })}
-                </p>
-                <div class="order-items">
-                    <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Items:</h4>
-                    ${order.items.map(item => `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <span>${item.name} <small style="color: var(--text-secondary);">(×${item.quantity})</small></span>
-                            <span style="font-weight: 600;">$${parseFloat(item.price).toFixed(2)} each</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `).join('');
-    }
-
-    async loadAdminOrders() {
-        if (!this.currentUser || this.currentUser.role !== 'admin') return;
-
-        try {
-            const response = await fetch(`${API_BASE}/admin/orders`, {
-                credentials: 'include'
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            updateUIForGuest() {
+                const authLinks = document.getElementById('auth-links');
+                const userInfo = document.getElementById('user-info');
+                
+                if (authLinks) authLinks.style.display = 'flex';
+                if (userInfo) userInfo.style.display = 'none';
             }
 
-            const orders = await response.json();
-            this.renderAdminOrders(orders);
-        } catch (error) {
-            console.error('Failed to load admin orders:', error);
-        }
-    }
+            handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
 
-    renderAdminOrders(orders) {
-        const adminOrdersList = document.getElementById('admin-orders-list');
-        if (!adminOrdersList) return;
-
-        if (!orders || orders.length === 0) {
-            adminOrdersList.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">📋</div>
-                    <h3>No Orders</h3>
-                    <p>No orders have been placed yet.</p>
-                </div>
-            `;
-            return;
-        }
-
-        adminOrdersList.innerHTML = orders.map(order => `
-            <div class="order-card">
-                <div class="order-header">
-                    <h3>Order #${order.id} - ${order.user_name}</h3>
-                    <span class="order-status status-${order.status}">${order.status}</span>
-                </div>
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">
-                    Total: $${parseFloat(order.total_price).toFixed(2)}
-                </p>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    📅 ${new Date(order.created_at).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                    })}
-                </p>
-                <div class="order-items">
-                    <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Items:</h4>
-                    ${order.items.map(item => `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
-                            <span>${item.name} <small style="color: var(--text-secondary);">(×${item.quantity})</small></span>
-                            <span style="font-weight: 600;">$${parseFloat(item.price).toFixed(2)} each</span>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="admin-order-actions" style="margin-top: 1rem;">
-                    <button onclick="updateOrderStatus(${order.id})" class="btn btn-secondary">Update Status</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    async loadAdminProducts() {
-        if (!this.currentUser || this.currentUser.role !== 'admin') return;
-
-        try {
-            const response = await fetch(`${API_BASE}/admin/products`, {
-                credentials: 'include'
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const user = this.users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.updateUIForUser();
+                    this.showNotification(`Welcome back, ${user.name}!`, 'success');
+                    showSection('home');
+                    e.target.reset();
+                } else {
+                    this.showNotification('Invalid email or password', 'error');
+                }
             }
 
-            const products = await response.json();
-            this.renderAdminProducts(products);
-        } catch (error) {
-            console.error('Failed to load admin products:', error);
-        }
-    }
+            handleRegister(e) {
+                e.preventDefault();
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
 
-    renderAdminProducts(products) {
-        const adminProductsList = document.getElementById('admin-products-list');
-        if (!adminProductsList) return;
+                // Check if user already exists
+                if (this.users.find(u => u.email === email)) {
+                    this.showNotification('User with this email already exists', 'error');
+                    return;
+                }
 
-        if (!products || products.length === 0) {
-            adminProductsList.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">🧁</div>
-                    <h3>No Products</h3>
-                    <p>No products have been added yet.</p>
-                </div>
-            `;
-            return;
-        }
+                const newUser = {
+                    id: this.nextUserId++,
+                    name,
+                    email,
+                    password,
+                    role: 'customer'
+                };
 
-        adminProductsList.innerHTML = products.map(product => `
-            <div class="product-card">
-                <img src="${product.image_url || '/placeholder.svg?height=220&width=320'}" alt="${product.name}" class="product-image">
-                <div class="product-info">
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-description">${product.description}</div>
-                    <div class="product-price">$${parseFloat(product.price).toFixed(2)}</div>
-                    <div class="product-stock">📦 ${product.stock} available</div>
-                    <div class="admin-product-actions">
-                        <button onclick="editProduct(${product.id})" class="btn btn-secondary">Edit</button>
-                        <button onclick="deleteProduct(${product.id})" class="btn btn-danger">Delete</button>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    async handleAddProduct(e) {
-        e.preventDefault();
-        if (!this.currentUser || this.currentUser.role !== 'admin') return;
-
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span class="loading"></span> Adding Product...';
-        submitBtn.disabled = true;
-
-        const formData = new FormData(e.target);
-
-        try {
-            const response = await fetch(`${API_BASE}/admin`, {
-                method: 'POST',
-                body: formData,
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.showNotification('Product added successfully! ✨', 'success');
+                this.users.push(newUser);
+                this.currentUser = newUser;
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                this.updateUIForUser();
+                this.showNotification('Account created successfully!', 'success');
+                showSection('home');
                 e.target.reset();
-                this.loadProducts();
-                this.loadAdminProducts();
-            } else {
-                this.showNotification(data.error || 'Failed to add product', 'error');
             }
-        } catch (error) {
-            console.error('Add product error:', error);
-            this.showNotification('Connection error. Please try again.', 'error');
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
+
+            logout() {
+                this.currentUser = null;
+                localStorage.removeItem('currentUser');
+                this.updateUIForGuest();
+                this.showNotification('Logged out successfully!', 'info');
+                showSection('home');
+            }
+
+            renderProducts() {
+                const grid = document.getElementById('products-grid');
+                if (!grid) return;
+                
+                if (this.products.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1;">
+                            <div class="empty-state-icon"><i class="ri-cake-2-line"></i></div>
+                            <h3>No Products Available</h3>
+                            <p>Check back soon for delicious muffins!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = this.products.map(product => `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-description">${product.description}</div>
+                            <div class="product-price">R${product.price.toFixed(2)}</div>
+                            <div class="product-stock"><i class="ri-cake-2-line"></i> ${product.stock} available</div>
+                            <div class="product-actions">
+                                <input type="number" class="quantity-input" value="1" min="1" max="${product.stock}" id="qty-${product.id}">
+                                <button onclick="app.addToCart(${product.id})" class="btn btn-primary" ${product.stock === 0 ? 'disabled' : ''}>
+                                    ${product.stock === 0 ? 'Out of Stock' : '<i class="ri-shopping-cart-line"></i> Add to Cart'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            addToCart(productId) {
+                if (!this.currentUser) {
+                    this.showNotification('Please sign in to add items to your cart', 'error');
+                    showSection('login');
+                    return;
+                }
+
+                const product = this.products.find(p => p.id === productId);
+                if (!product) {
+                    this.showNotification('Product not found', 'error');
+                    return;
+                }
+
+                const quantityInput = document.getElementById(`qty-${productId}`);
+                const quantity = parseInt(quantityInput?.value || 1);
+
+                if (isNaN(quantity) || quantity < 1) {
+                    this.showNotification('Please enter a valid quantity', 'error');
+                    return;
+                }
+
+                if (quantity > product.stock) {
+                    this.showNotification(`Only ${product.stock} items available`, 'error');
+                    return;
+                }
+
+                // Check if product is already in cart
+                const existingItem = this.cart.find(item => item.productId === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    this.cart.push({
+                        productId,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity
+                    });
+                }
+
+                // Update product stock
+                product.stock -= quantity;
+
+                this.showNotification(`${quantity} ${product.name} added to cart!`, 'success');
+                this.renderProducts();
+                this.loadCart();
+                this.updateCartBadge();
+                
+                // Switch to cart section if not already there
+                if (!document.getElementById('cart').classList.contains('active')) {
+                    showSection('cart');
+                }
+            }
+
+            loadCart() {
+                const cartItems = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                
+                if (!cartItems) return;
+
+                if (this.cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon"><i class="ri-shopping-cart-line"></i></div>
+                            <h3>Your Cart is Empty</h3>
+                            <p>Add some delicious muffins to get started!</p>
+                            <button onclick="showSection('products')" class="btn btn-primary">
+                                Browse Products
+                            </button>
+                        </div>
+                    `;
+                    if (cartTotal) cartTotal.style.display = 'none';
+                    return;
+                }
+
+                cartItems.innerHTML = this.cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Quantity: ${item.quantity}</p>
+                            <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">R${item.price.toFixed(2)} each</p>
+                            <p style="font-weight: 600; color: var(--primary-color);">Total: R${(item.price * item.quantity).toFixed(2)}</p>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                <button onclick="app.updateCartItem(${item.productId}, ${item.quantity - 1})" class="btn btn-secondary" ${item.quantity <= 1 ? 'disabled' : ''}>
+                                    <i class="ri-subtract-line"></i>
+                                </button>
+                                <button onclick="app.updateCartItem(${item.productId}, ${item.quantity + 1})" class="btn btn-secondary">
+                                    <i class="ri-add-line"></i>
+                                </button>
+                                <button onclick="app.removeFromCart(${item.productId})" class="btn btn-secondary" style="background: #dc3545; color: white;">
+                                    <i class="ri-delete-bin-line"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const totalAmount = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                const totalElement = document.getElementById('total-amount');
+                if (totalElement && cartTotal) {
+                    totalElement.textContent = totalAmount.toFixed(2);
+                    cartTotal.style.display = 'block';
+                }
+            }
+
+            updateCartItem(productId, newQuantity) {
+                if (newQuantity < 1) {
+                    this.removeFromCart(productId);
+                    return;
+                }
+
+                const item = this.cart.find(item => item.productId === productId);
+                if (!item) return;
+
+                const product = this.products.find(p => p.id === productId);
+                if (!product) return;
+
+                // Calculate stock difference
+                const stockDifference = newQuantity - item.quantity;
+                
+                if (stockDifference > 0 && stockDifference > product.stock) {
+                    this.showNotification(`Only ${product.stock} more items available`, 'error');
+                    return;
+                }
+
+                // Update cart and product stock
+                item.quantity = newQuantity;
+                product.stock -= stockDifference;
+
+                this.showNotification('Cart updated', 'success');
+                this.renderProducts();
+                this.loadCart();
+                this.updateCartBadge();
+            }
+
+            removeFromCart(productId) {
+                const itemIndex = this.cart.findIndex(item => item.productId === productId);
+                if (itemIndex !== -1) {
+                    const removedItem = this.cart[itemIndex];
+                    
+                    // Restore stock
+                    const product = this.products.find(p => p.id === productId);
+                    if (product) {
+                        product.stock += removedItem.quantity;
+                    }
+                    
+                    this.cart.splice(itemIndex, 1);
+                    this.showNotification(`${removedItem.name} removed from cart`, 'info');
+                    this.renderProducts();
+                    this.loadCart();
+                    this.updateCartBadge();
+                }
+            }
+
+            updateCartBadge() {
+                const cartCount = document.getElementById('cart-count');
+                if (cartCount) {
+                    const totalItems = this.cart.reduce((total, item) => total + item.quantity, 0);
+                    if (totalItems > 0) {
+                        cartCount.textContent = totalItems;
+                        cartCount.style.display = 'flex';
+                    } else {
+                        cartCount.style.display = 'none';
+                    }
+                }
+            }
+
+            // Payment Methods
+            selectPaymentMethod(method) {
+                this.selectedPaymentMethod = method;
+                
+                // Remove active class from all payment methods
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // Add active class to selected method
+                event.currentTarget.classList.add('active');
+                
+                // Hide all payment details
+                document.querySelectorAll('.payment-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // Show selected payment details
+                const totalAmount = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                
+                if (method === 'credit-card') {
+                    document.getElementById('credit-card-details').classList.add('active');
+                    document.getElementById('credit-card-total').textContent = totalAmount.toFixed(2);
+                } else if (method === 'paypal') {
+                    document.getElementById('paypal-details').classList.add('active');
+                    document.getElementById('paypal-total').textContent = totalAmount.toFixed(2);
+                } else if (method === 'bank-transfer') {
+                    document.getElementById('bank-transfer-details').classList.add('active');
+                    document.getElementById('bank-total').textContent = totalAmount.toFixed(2);
+                    document.getElementById('bank-reference').textContent = this.nextOrderId;
+                } else if (method === 'cash') {
+                    document.getElementById('cash-details').classList.add('active');
+                    document.getElementById('cash-total').textContent = totalAmount.toFixed(2);
+                }
+            }
+
+            handleCreditCardPayment(e) {
+                e.preventDefault();
+                
+                // Simple validation
+                const cardNumber = document.getElementById('card-number').value;
+                const expiryDate = document.getElementById('expiry-date').value;
+                const cvv = document.getElementById('cvv').value;
+                const cardholderName = document.getElementById('cardholder-name').value;
+                
+                if (!cardNumber || !expiryDate || !cvv || !cardholderName) {
+                    this.showNotification('Please fill in all credit card details', 'error');
+                    return;
+                }
+                
+                // Simulate payment processing
+                this.showNotification('Processing payment...', 'info');
+                
+                setTimeout(() => {
+                    this.completePayment('Credit Card');
+                }, 2000);
+            }
+
+            processPayPalPayment() {
+                this.showNotification('Redirecting to PayPal...', 'info');
+                
+                setTimeout(() => {
+                    this.completePayment('PayPal');
+                }, 2000);
+            }
+
+            processBankTransfer() {
+                this.showNotification('Bank transfer confirmed. Your order will be processed once payment is received.', 'success');
+                
+                setTimeout(() => {
+                    this.completePayment('Bank Transfer');
+                }, 1000);
+            }
+
+            processCashPayment() {
+                this.showNotification('Cash on delivery confirmed. Please have the exact amount ready.', 'success');
+                
+                setTimeout(() => {
+                    this.completePayment('Cash on Delivery');
+                }, 1000);
+            }
+
+            completePayment(paymentMethod) {
+                const totalAmount = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                
+                const newOrder = {
+                    id: this.nextOrderId++,
+                    userId: this.currentUser.id,
+                    items: [...this.cart],
+                    total: totalAmount,
+                    status: 'confirmed',
+                    paymentMethod: paymentMethod,
+                    date: new Date().toISOString()
+                };
+
+                this.orders.push(newOrder);
+                this.cart = [];
+                
+                this.showNotification('Payment successful! Order confirmed.', 'success');
+                this.loadCart();
+                this.loadOrders();
+                this.updateCartBadge();
+                
+                // Generate receipt
+                this.generateReceipt(newOrder);
+                showSection('receipt');
+            }
+
+            generateReceipt(order) {
+                document.getElementById('receipt-order-number').textContent = `#${order.id}`;
+                document.getElementById('receipt-date').textContent = new Date(order.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('receipt-payment-method').textContent = order.paymentMethod;
+                document.getElementById('receipt-total').textContent = order.total.toFixed(2);
+                
+                const receiptItems = document.getElementById('receipt-items');
+                receiptItems.innerHTML = order.items.map(item => `
+                    <div class="receipt-item">
+                        <span>${item.name} (×${item.quantity})</span>
+                        <span>R${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `).join('');
+            }
+
+            loadOrders() {
+                const ordersList = document.getElementById('orders-list');
+                if (!ordersList) return;
+
+                const userOrders = this.orders.filter(order => order.userId === this.currentUser?.id);
+
+                if (userOrders.length === 0) {
+                    ordersList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon"><i class="ri-file-list-line"></i></div>
+                            <h3>No Orders Yet</h3>
+                            <p>Your order history will appear here once you make your first purchase.</p>
+                            <button onclick="showSection('products')" class="btn btn-primary">
+                                Start Shopping
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                ordersList.innerHTML = userOrders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <h3>Order #${order.id}</h3>
+                            <span class="order-status status-${order.status}">${order.status}</span>
+                        </div>
+                        <p style="font-size: 1.2rem; font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;">
+                            Total: R${order.total.toFixed(2)}
+                        </p>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            <i class="ri-calendar-line"></i> ${new Date(order.date).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                            })}
+                        </p>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            <i class="ri-bank-card-line"></i> Payment: ${order.paymentMethod}
+                        </p>
+                        <div class="order-items">
+                            <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Items:</h4>
+                            ${order.items.map(item => `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                                    <span>${item.name} <small style="color: var(--text-secondary);">(×${item.quantity})</small></span>
+                                    <span style="font-weight: 600;">R${item.price.toFixed(2)} each</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            handleContact(e) {
+                e.preventDefault();
+                this.showNotification('Thank you for your message! We will get back to you soon.', 'success');
+                e.target.reset();
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.getElementById('notification');
+                if (!notification) return;
+                
+                notification.textContent = message;
+                notification.className = `notification ${type} show`;
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 4000);
+            }
         }
-    }
 
-    showNotification(message, type = 'info') {
-        const notification = document.getElementById('notification');
-        if (!notification) return;
-        
-        notification.textContent = message;
-        notification.className = `notification ${type} show`;
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 4000);
-    }
-}
+        // Global functions for HTML onclick handlers
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Load appropriate data based on section
+            if (sectionId === 'products') {
+                app.renderProducts();
+            } else if (sectionId === 'cart') {
+                app.loadCart();
+            } else if (sectionId === 'orders') {
+                app.loadOrders();
+            } else if (sectionId === 'payment') {
+                // Reset payment selection when showing payment section
+                document.querySelectorAll('.payment-method').forEach(el => {
+                    el.classList.remove('active');
+                });
+                document.querySelectorAll('.payment-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+                app.selectedPaymentMethod = null;
+            }
+        }
 
-// Global functions for HTML onclick handlers
-function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show selected section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
-    
-    // Load admin data if showing admin section
-    if (sectionId === 'admin' && window.app?.currentUser?.role === 'admin') {
-        window.app.loadAdminOrders();
-        window.app.loadAdminProducts();
-    }
-}
+        function selectPaymentMethod(method) {
+            app.selectPaymentMethod(method);
+        }
 
-function addToCart(productId) {
-    if (window.app) {
-        window.app.addToCart(productId);
-    }
-}
+        function processPayPalPayment() {
+            app.processPayPalPayment();
+        }
 
-function checkout() {
-    if (window.app) {
-        window.app.checkout();
-    }
-}
+        function processBankTransfer() {
+            app.processBankTransfer();
+        }
 
-function logout() {
-    if (window.app) {
-        window.app.logout();
-    }
-}
+        function processCashPayment() {
+            app.processCashPayment();
+        }
 
-function openAdminTab(tabName, event) {
-    // Hide all tab contents
-    document.querySelectorAll('.admin-tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
-    
-    // Remove active class from all tab buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Show selected tab content and activate button
-    const targetTab = document.getElementById(tabName);
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-    
-    // Load appropriate data
-    if (tabName === 'manage-orders' && window.app?.currentUser?.role === 'admin') {
-        window.app.loadAdminOrders();
-    } else if (tabName === 'manage-products' && window.app?.currentUser?.role === 'admin') {
-        window.app.loadAdminProducts();
-    }
-}
+        function logout() {
+            app.logout();
+        }
 
-function updateOrderStatus(orderId) {
-    const newStatus = prompt('Enter new status (pending/confirmed/shipped/delivered):');
-    if (newStatus && ['pending', 'confirmed', 'shipped', 'delivered'].includes(newStatus.toLowerCase())) {
-        window.app?.showNotification('Order status update functionality coming soon!', 'info');
-    }
-}
+        function checkout() {
+            app.checkout();
+        }
 
-function editProduct(productId) {
-    window.app?.showNotification('Product edit functionality coming soon!', 'info');
-}
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletter-email').value;
+            if (email) {
+                app.showNotification('Thank you for subscribing to our newsletter!', 'success');
+                document.getElementById('newsletter-email').value = '';
+            } else {
+                app.showNotification('Please enter your email address', 'error');
+            }
+        }
 
-function deleteProduct(productId) {
-    if (confirm('Are you sure you want to delete this product?')) {
-        window.app?.showNotification('Product delete functionality coming soon!', 'info');
-    }
-}
+        function printReceipt() {
+            window.print();
+        }
 
-// Initialize the application
-const app = new MuffinShop();
-window.app = app; // Make app globally accessible
+        // Initialize the application
+        const app = new MuffinShop();
+        window.app = app; // Make app globally accessible
     </script>
 </body>
 </html>
